@@ -6,6 +6,8 @@ import axios from "axios";
 export default function SearchEngine(props) {
     let [city, SetCity] = useState(props.defaultCity)
     const [properties, SetProperties] = useState({ ready: false })
+    let [temperature, SetTemperature] = useState("")
+
 
     function getData() {
         let key = `6852ob2ff54a88c1bb70te85ce832d00`
@@ -22,8 +24,10 @@ export default function SearchEngine(props) {
             description: resp.condition.description,
             humidity: resp.temperature.humidity,
             wind: resp.wind.speed,
+            icon: resp.condition.icon_url,
             ready: true,
-        })
+        });
+        SetTemperature(Math.round(resp.temperature.current))
     }
 
     function cityChange(event) {
@@ -34,6 +38,15 @@ export default function SearchEngine(props) {
         event.preventDefault();
         SetProperties({ ready: false });
         getData()
+    }
+
+    function changeUnitFar(event) {
+        event.preventDefault();
+        SetTemperature(Math.round((properties.temp * 9) / 5 + 32))
+    }
+    function changeUnitCelsius(event) {
+        event.preventDefault();
+        SetTemperature(properties.temp)
     }
 
 
@@ -59,10 +72,10 @@ export default function SearchEngine(props) {
                 </div>
                 <div className="row">
                     <div className="col-6 d-flex align-items-center first-column-descriprion">
-                        <img src="https://openweathermap.org/img/wn/10d@2x.png" alt="weather discription" />
-                        <span>{properties.temp}</span>
+                        <img src={properties.icon} alt="weather discription" />
+                        <span>{temperature}</span>
                         <div>
-                            <a href="/">℃</a>|<a href="/">℉</a>
+                            <a href="/" onClick={changeUnitCelsius}>℃</a>|<a href="/" onClick={changeUnitFar}>℉</a>
                         </div>
                     </div>
                     <div className="col-6 second-column-descriprion">
@@ -90,7 +103,7 @@ export default function SearchEngine(props) {
                     </div>
                 </form>
                 <div className="discription-date">
-                    <h1>Loading...</h1>
+                    <h1>Searching for a city...</h1>
                 </div>
             </div>
         )
