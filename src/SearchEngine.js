@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
+import FullDate from "./FullDate"
 
 export default function SearchEngine(props) {
     let [city, SetCity] = useState(props.defaultCity)
@@ -66,7 +67,7 @@ export default function SearchEngine(props) {
                 <div className="discription-date">
                     <h1>{properties.cityName}, {properties.country}</h1>
                     <ul>
-                        <li>Monday</li>
+                        <li><FullDate /></li>
                         <li className="text-capitalize">{properties.description}</li>
                     </ul>
                 </div>
