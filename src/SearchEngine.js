@@ -3,6 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import FullDate from "./FullDate"
+import WeatherInfo from "./WeatherInfo";
 
 export default function SearchEngine(props) {
     let [city, SetCity] = useState(props.defaultCity)
@@ -41,15 +42,6 @@ export default function SearchEngine(props) {
         getData()
     }
 
-    function changeUnitFar(event) {
-        event.preventDefault();
-        SetTemperature(Math.round((properties.temp * 9) / 5 + 32))
-    }
-    function changeUnitCelsius(event) {
-        event.preventDefault();
-        SetTemperature(properties.temp)
-    }
-
 
     if (properties.ready) {
         return (
@@ -64,28 +56,7 @@ export default function SearchEngine(props) {
                         </div>
                     </div>
                 </form>
-                <div className="discription-date">
-                    <h1>{properties.cityName}, {properties.country}</h1>
-                    <ul>
-                        <li><FullDate /></li>
-                        <li className="text-capitalize">{properties.description}</li>
-                    </ul>
-                </div>
-                <div className="row">
-                    <div className="col-6 d-flex align-items-center first-column-descriprion">
-                        <img src={properties.icon} alt="weather discription" />
-                        <span>{temperature}</span>
-                        <div>
-                            <a href="/" onClick={changeUnitCelsius}>℃</a>|<a href="/" onClick={changeUnitFar}>℉</a>
-                        </div>
-                    </div>
-                    <div className="col-6 second-column-descriprion">
-                        <ul>
-                            <li>Humidity: {properties.humidity}%</li>
-                            <li>Wind: {properties.wind}km/h</li>
-                        </ul>
-                    </div>
-                </div>
+                <WeatherInfo data={properties} temp={temperature} />
             </div>
         )
     } else {
