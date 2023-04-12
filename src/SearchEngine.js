@@ -7,17 +7,23 @@ export default function SearchEngine(props) {
     let [city, SetCity] = useState(props.defaultCity)
     const [properties, SetProperties] = useState({ ready: false })
 
+    function getData() {
+        let key = `6852ob2ff54a88c1bb70te85ce832d00`
+        let url = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${key}&units=metric`;
+        axios.get(url).then(getWeather)
+    }
+
     function getWeather(response) {
+        const resp = response.data;
         SetProperties({
-            cityName: response.data.city,
-            temp: Math.round(response.data.temperature.current),
-            country: response.data.country,
-            description: response.data.condition.description,
-            humidity: response.data.temperature.humidity,
-            wind: response.data.wind.speed,
+            cityName: resp.city,
+            temp: Math.round(resp.temperature.current),
+            country: resp.country,
+            description: resp.condition.description,
+            humidity: resp.temperature.humidity,
+            wind: resp.wind.speed,
             ready: true,
         })
-        console.log(response)
     }
 
     function cityChange(event) {
@@ -27,14 +33,9 @@ export default function SearchEngine(props) {
     function changeData(event) {
         event.preventDefault();
         SetProperties({ ready: false });
-        getWeather()
+        getData()
     }
 
-    function getData() {
-        let key = `6852ob2ff54a88c1bb70te85ce832d00`
-        let url = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${key}&units=metric`;
-        axios.get(url).then(getWeather)
-    }
 
     if (properties.ready) {
         return (
