@@ -21,7 +21,7 @@ export default function SearchEngine(props) {
                     </div>
                 </form>
                 <div className="discription-date">
-                    <h1>{properties.city}, {properties.country}</h1>
+                    <h1>{properties.cityName}, {properties.country}</h1>
                     <ul>
                         <li>Monday</li>
                         <li>{properties.description}</li>
@@ -37,9 +37,8 @@ export default function SearchEngine(props) {
                     </div>
                     <div className="col-6 second-column-descriprion">
                         <ul>
-                            <li>Precipitation: {properties.precipitation}</li>
-                            <li>Humidity: {properties.humidity}</li>
-                            <li>Wind: {properties.wind}</li>
+                            <li>Humidity: {properties.humidity}%</li>
+                            <li>Wind: {properties.wind}km/h</li>
                         </ul>
                     </div>
                 </div>
@@ -51,10 +50,13 @@ export default function SearchEngine(props) {
 
         function getWeather(response) {
             SetProperties({
-                city: response.data.name,
+                cityName: response.data.name,
                 temp: Math.round(response.data.main.temp),
                 country: response.data.sys.country,
-                description: response.weather.description,
+                description: response.data.weather[0].description,
+                humidity: response.data.main.humidity,
+                wind: response.data.wind.speed,
+                ready: true,
             })
             console.log(response.data)
 
