@@ -5,15 +5,44 @@ import axios from "axios";
 
 export default function SearchEngine(props) {
     let [city, SetCity] = useState(props.defaultCity)
-    let [properties, SetProperties] = useState({ ready: false })
+    const [properties, SetProperties] = useState({ ready: false })
+
+    function getWeather(response) {
+        SetProperties({
+            cityName: response.data.city,
+            temp: Math.round(response.data.temperature.current),
+            country: response.data.country,
+            description: response.data.condition.description,
+            humidity: response.data.temperature.humidity,
+            wind: response.data.wind.speed,
+            ready: true,
+        })
+        console.log(response)
+    }
+
+    function cityChange(event) {
+        SetCity(event.target.value)
+    }
+
+    function changeData(event) {
+        event.preventDefault();
+        SetProperties({ ready: false });
+        getWeather()
+    }
+
+    function getData() {
+        let key = `6852ob2ff54a88c1bb70te85ce832d00`
+        let url = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${key}&units=metric`;
+        axios.get(url).then(getWeather)
+    }
 
     if (properties.ready) {
         return (
             <div className="container mt-5 border rounded pb-4">
-                <form>
+                <form onSubmit={changeData}>
                     <div className="row mt-3 mb-3">
                         <div className="col-9">
-                            <input type="search" placeholder="Type the city.." className="form-control" />
+                            <input type="search" placeholder="Type the city.." autoFocus="on" onChange={cityChange} className="form-control" />
                         </div>
                         <div className="col-3">
                             <input type="submit" value="Search" className="btn btn-primary w-100" />
@@ -24,7 +53,7 @@ export default function SearchEngine(props) {
                     <h1>{properties.cityName}, {properties.country}</h1>
                     <ul>
                         <li>Monday</li>
-                        <li>{properties.description}</li>
+                        <li className="text-capitalize">{properties.description}</li>
                     </ul>
                 </div>
                 <div className="row">
@@ -45,22 +74,7 @@ export default function SearchEngine(props) {
             </div>
         )
     } else {
-        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=46fac47dd8b8fa26d1b6852218ad3dfe&units=metric`;
-        axios.get(url).then(getWeather)
-
-        function getWeather(response) {
-            SetProperties({
-                cityName: response.data.name,
-                temp: Math.round(response.data.main.temp),
-                country: response.data.sys.country,
-                description: response.data.weather[0].description,
-                humidity: response.data.main.humidity,
-                wind: response.data.wind.speed,
-                ready: true,
-            })
-            console.log(response.data)
-
-        }
+        getData()
 
         return (
             <div className="container mt-5 border rounded pb-4">
