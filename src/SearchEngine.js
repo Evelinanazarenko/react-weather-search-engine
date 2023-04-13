@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
-import FullDate from "./FullDate"
 import WeatherInfo from "./WeatherInfo";
 
 export default function SearchEngine(props) {
