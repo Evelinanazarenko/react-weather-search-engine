@@ -3,6 +3,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
+import WeatherForecast from "./WeatherForecast";
 
 export default function SearchEngine(props) {
     let [city, SetCity] = useState(props.defaultCity)
@@ -56,6 +57,7 @@ export default function SearchEngine(props) {
                     </div>
                 </form>
                 <WeatherInfo data={properties} temp={temperature} />
+                <WeatherForecast icon={properties.icon} />
             </div>
         )
     } else {

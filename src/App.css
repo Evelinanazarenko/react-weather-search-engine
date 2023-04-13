@@ -59,6 +59,14 @@ h1 {
   font-size: 18px;
 }
 
+.first-column-descriprion .units a {
+  color: blue;
+}
+
+.first-column-descriprion .units a:hover {
+  color: rgb(174, 174, 255);
+}
+
 .first-column-descriprion a {
   text-decoration: none;
   color: #282c34;

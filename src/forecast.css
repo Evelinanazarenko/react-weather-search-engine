@@ -1,0 +1,12 @@
+.weather-forecast img {
+  width: 80px;
+}
+
+.weather-forecast p {
+  opacity: 80%;
+  font-weight: 500;
+}
+
+.forecast-temp-min {
+  opacity: 85%;
+}
