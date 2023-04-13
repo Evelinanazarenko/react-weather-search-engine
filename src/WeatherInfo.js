@@ -1,19 +1,8 @@
 import React, { useState } from "react";
 import FullDate from "./FullDate";
+import UnitConvertation from "./UnitConvertation";
 
 export default function WeatherInfo(props) {
-    let [temperature, SetTemperature] = useState(props.temp);
-
-    function changeUnitFar(event) {
-        event.preventDefault();
-        SetTemperature(Math.round((props.temp * 9) / 5 + 32))
-    }
-    function changeUnitCelsius(event) {
-        event.preventDefault();
-        SetTemperature(props.temp)
-    }
-
-
     return <div>
         <div className="discription-date">
             <h1>{props.data.cityName}, {props.data.country}</h1>
@@ -25,10 +14,7 @@ export default function WeatherInfo(props) {
         <div className="row">
             <div className="col-6 d-flex align-items-center first-column-descriprion">
                 <img src={props.data.icon} alt="weather discription" />
-                <span>{temperature}</span>
-                <div>
-                    <a href="/" onClick={changeUnitCelsius}>℃</a>|<a href="/" onClick={changeUnitFar}>℉</a>
-                </div>
+                <UnitConvertation temp={props.temp} />
             </div>
             <div className="col-6 second-column-descriprion">
                 <ul>

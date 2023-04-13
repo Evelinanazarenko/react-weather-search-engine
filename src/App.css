@@ -46,13 +46,17 @@ h1 {
 
 .first-column-descriprion div {
   position: relative;
-  top: -11px;
+  top: -5px;
 }
 
 .first-column-descriprion span {
   font-size: 57px;
-  line-height: 57px;
+  line-height: 38px;
   margin-right: 10px;
+}
+
+.first-column-descriprion .units {
+  font-size: 18px;
 }
 
 .first-column-descriprion a {
