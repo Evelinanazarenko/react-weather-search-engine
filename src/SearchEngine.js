@@ -17,9 +17,11 @@ export default function SearchEngine(props) {
         axios.get(url).then(getWeather)
     }
 
+
     function getWeather(response) {
         const resp = response.data;
         SetProperties({
+            coord: response.data.coordinates,
             cityName: resp.city,
             temp: Math.round(resp.temperature.current),
             country: resp.country,
@@ -43,6 +45,8 @@ export default function SearchEngine(props) {
     }
 
 
+
+
     if (properties.ready) {
         return (
             <div className="container mt-5 border rounded pb-4">
@@ -57,7 +61,7 @@ export default function SearchEngine(props) {
                     </div>
                 </form>
                 <WeatherInfo data={properties} temp={temperature} />
-                <WeatherForecast icon={properties.icon} />
+                <WeatherForecast icon={properties.icon} coordinates={properties.coord} city={properties.cityName} />
             </div>
         )
     } else {
