@@ -16,7 +16,13 @@ export default function WeatherForecast(props) {
     if (ready) {
         return (
             <div className="weather-forecast row mt-4">
-                <ForecastDay data={forecastData} icon={props.icon} />
+                {forecastData.map((forecastDay, index) => {
+                    if (index > 0 && index < 6) {
+                        return <div key={index} className="col">
+                            <ForecastDay data={forecastDay} />
+                        </div>
+                    }
+                })}
             </div>
         )
     } else {
