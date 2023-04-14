@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
 import WeatherForecast from "./WeatherForecast";
+import LocalWeather from "./LocalWeather"
 
 export default function SearchEngine(props) {
     let [city, SetCity] = useState(props.defaultCity)
@@ -45,19 +46,18 @@ export default function SearchEngine(props) {
     }
 
 
-
-
     if (properties.ready) {
         return (
             <div className="container mt-5 border rounded pb-4">
                 <form onSubmit={changeData}>
                     <div className="row mt-3 mb-3">
-                        <div className="col-9">
+                        <div className="col-8">
                             <input type="search" placeholder="Type the city.." onChange={cityChange} className="form-control" />
                         </div>
-                        <div className="col-3">
+                        <div className="col-2">
                             <input type="submit" value="Search" className="btn btn-primary w-100" />
                         </div>
+                        <LocalWeather />
                     </div>
                 </form>
                 <WeatherInfo data={properties} temp={temperature} />
@@ -85,12 +85,13 @@ export default function SearchEngine(props) {
             </div>
         )
     }
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
+
+
+
+

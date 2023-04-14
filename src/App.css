@@ -72,3 +72,8 @@ h1 {
   color: #282c34;
   font-size: 18px;
 }
+
+.btn-green {
+  background-color: rgb(132, 191, 43) !important;
+  color: white !important;
+}
