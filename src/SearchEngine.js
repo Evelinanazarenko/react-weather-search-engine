@@ -14,8 +14,8 @@ export default function SearchEngine(props) {
 
 
     function getData() {
-        let key = `6852ob2ff54a88c1bb70te85ce832d00`
-        let url = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${key}&units=metric`;
+        let key = `592505440dc3616fd4946f5bb81d820e`
+        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric`;
         axios.get(url).then(getWeather)
     }
 
@@ -23,17 +23,17 @@ export default function SearchEngine(props) {
     function getWeather(response) {
         const resp = response.data;
         SetProperties({
-            coord: response.data.coordinates,
-            cityName: resp.city,
-            temp: Math.round(resp.temperature.current),
-            country: resp.country,
-            description: resp.condition.description,
-            humidity: resp.temperature.humidity,
+            coord: response.data.coord,
+            cityName: resp.name,
+            temp: Math.round(resp.main.temp),
+            country: resp.sys.country,
+            description: resp.weather[0].description,
+            humidity: resp.main.humidity,
             wind: resp.wind.speed,
-            icon: resp.condition.icon_url,
+            icon: resp.weather[0].icon,
             ready: true,
         });
-        SetTemperature(Math.round(resp.temperature.current))
+        SetTemperature(Math.round(resp.main.temp))
     }
 
     function cityChange(event) {
@@ -47,9 +47,10 @@ export default function SearchEngine(props) {
     }
 
 
+
     function getLocalData() {
-        let key = `6852ob2ff54a88c1bb70te85ce832d00`
-        let url = `https://api.shecodes.io/weather/v1/current?lon=${localCoords.longitude}&lat=${localCoords.latitude}&key=${key}&units=metric`;
+        let key = `592505440dc3616fd4946f5bb81d820e`
+        let url = `https://api.openweathermap.org/data/2.5/weather?lat=${localCoords.latitude}&lon=${localCoords.longitude}&appid=${key}&units=metric`;
         axios.get(url).then(getWeather)
     }
 
@@ -78,7 +79,7 @@ export default function SearchEngine(props) {
                     </div>
                 </form>
                 <WeatherInfo data={properties} temp={temperature} />
-                <WeatherForecast icon={properties.icon} city={properties.cityName} />
+                <WeatherForecast coordinates={properties.coord} city={properties.cityName} />
             </div>
         )
     } else {

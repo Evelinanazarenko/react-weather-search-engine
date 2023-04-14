@@ -3,6 +3,11 @@ import FullDate from "./FullDate";
 import UnitConvertation from "./UnitConvertation";
 
 export default function WeatherInfo(props) {
+    function icon() {
+        return `https://openweathermap.org/img/wn/${props.data.icon}@2x.png`
+    }
+
+
     return <div>
         <div className="discription-date">
             <h1>{props.data.cityName}, {props.data.country}</h1>
@@ -13,7 +18,7 @@ export default function WeatherInfo(props) {
         </div>
         <div className="row">
             <div className="col-6 d-flex align-items-center first-column-descriprion">
-                <img src={props.data.icon} alt="weather discription" />
+                <img src={icon()} alt="weather discription" />
                 <UnitConvertation temp={props.temp} />
             </div>
             <div className="col-6 second-column-descriprion">

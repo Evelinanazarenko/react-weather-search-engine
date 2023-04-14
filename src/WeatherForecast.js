@@ -12,15 +12,15 @@ export default function WeatherForecast(props) {
         SetReady(true)
     }
     function runAxios() {
-        let key = "6852ob2ff54a88c1bb70te85ce832d00";
-        let url = `https://api.shecodes.io/weather/v1/forecast?query=${props.city}&key=${key}&units=metric`;
+        let key = `b400ae3b711a616262d18b0ca2cbe78f`
+        let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${props.coordinates.lat}&lon=${props.coordinates.lon}&cnt=${6}&appid=${key}&units=metric`;
         axios.get(url).then(getForecastData);
         return null
     }
 
     useEffect(() => {
         SetReady(false);
-    }, [props])
+    }, [props.city])
 
 
     if (ready) {
