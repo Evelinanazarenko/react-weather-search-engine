@@ -4,6 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from "axios";
 import WeatherInfo from "./WeatherInfo";
 import WeatherForecast from "./WeatherForecast";
+import { MagnifyingGlass } from "react-loader-spinner";
 
 export default function SearchEngine(props) {
     let [city, SetCity] = useState(props.defaultCity)
@@ -98,7 +99,16 @@ export default function SearchEngine(props) {
                     </div>
                 </form>
                 <div className="discription-date">
-                    <h1>Searching for a city...</h1>
+                    <h1><MagnifyingGlass
+                        visible={true}
+                        height="40"
+                        width="40"
+                        ariaLabel="MagnifyingGlass-loading"
+                        wrapperStyle={{}}
+                        wrapperClass="MagnifyingGlass-wrapper"
+                        glassColor='#c0efff'
+                        color='#e15b64'
+                    />Searching for a city...</h1>
                 </div>
             </div>
         )
