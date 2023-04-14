@@ -61,7 +61,7 @@ export default function SearchEngine(props) {
                     </div>
                 </form>
                 <WeatherInfo data={properties} temp={temperature} />
-                <WeatherForecast icon={properties.icon} coordinates={properties.coord} city={properties.cityName} />
+                <WeatherForecast icon={properties.icon} city={properties.cityName} />
             </div>
         )
     } else {

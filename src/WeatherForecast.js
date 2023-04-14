@@ -1,28 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import "./forecast.css";
 import axios from "axios";
+import ForecastDay from "./ForecastDay"
 
 export default function WeatherForecast(props) {
-    let lon = props.coordinates.longitude
-    let lat = props.coordinates.latitude
-    let key = "592505440dc3616fd4946f5bb81d820e";
-    let url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&exclude=daily&appid=${key}`;
+    let [ready, SetReady] = useState(false)
+    let [forecastData, SetForecastData] = useState([])
 
     function getForecastData(response) {
-        console.log(response.data)
+        SetForecastData(response.data.daily)
+        SetReady(true)
     }
-    axios.get(url).then(getForecastData);
 
-    return (
-        <div className="weather-forecast row mt-4">
-            <div className="col">
-                <p className="m-0">Mon</p>
-                <img src={props.icon} alt="weather discription" />
-                <div>
-                    <span className="forecast-temp-max">19°</span>
-                    <span className="forecast-temp-min">10°</span>
-                </div>
+
+    if (ready) {
+        return (
+            <div className="weather-forecast row mt-4">
+                <ForecastDay data={forecastData} icon={props.icon} />
             </div>
-        </div>
-    )
+        )
+    } else {
+        let key = "6852ob2ff54a88c1bb70te85ce832d00";
+        let url = `https://api.shecodes.io/weather/v1/forecast?query=${props.city}&key=${key}&units=metric`;
+        axios.get(url).then(getForecastData);
+        return null
+    }
+
 }
